@@ -1,6 +1,8 @@
 package com.foxxx.animationscompose.ui.screen
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -20,6 +22,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
@@ -64,6 +67,7 @@ fun Test() {
             modifier = Modifier
                 .fillMaxWidth(),
             onClick = {
+                      isIncreased = !isIncreased
 
             },
             colors = ButtonDefaults.buttonColors(
@@ -75,13 +79,21 @@ fun Test() {
         }
         AnimateContainer(
             text = "Shape",
+            modifier = Modifier
+                .background(
+                    color = if (isIncreased) Color.Blue else Color.Yellow,
+                    shape = RoundedCornerShape(
+                        percent = if (isIncreased) 0 else 100)
+                )
         )
 
 
         Button(
             modifier = Modifier
                 .fillMaxWidth(),
-            onClick = {},
+            onClick = {
+                      isIncreased = !isIncreased
+            },
             colors = ButtonDefaults.buttonColors(
                 containerColor = Color.Blue,
                 contentColor = Color.White
@@ -90,13 +102,22 @@ fun Test() {
             Text(text = "Animate border")
         }
         AnimateContainer(
-            text = "Border"
+            text = "Border",
+            modifier = Modifier
+                .border(
+                    border = BorderStroke(
+                        width = if (isIncreased) 0.dp else 5.dp,
+                        color = Color.White
+                    )
+                )
         )
 
         Button(
             modifier = Modifier
                 .fillMaxWidth(),
-            onClick = {},
+            onClick = {
+                      isIncreased = !isIncreased
+            },
             colors = ButtonDefaults.buttonColors(
                 containerColor = Color.Blue,
                 contentColor = Color.White
@@ -105,13 +126,19 @@ fun Test() {
             Text(text = "Animate color")
         }
         AnimateContainer(
-            text = "Color"
+            text = "Color",
+            modifier = Modifier
+                .background(
+                    color = if (isIncreased) Color.Blue else Color.Yellow
+                )
         )
 
         Button(
             modifier = Modifier
                 .fillMaxWidth(),
-            onClick = {},
+            onClick = {
+                      isIncreased = !isIncreased
+            },
             colors = ButtonDefaults.buttonColors(
                 containerColor = Color.Blue,
                 contentColor = Color.White
@@ -120,7 +147,11 @@ fun Test() {
             Text(text = "Animate visibility")
         }
         AnimateContainer(
-            text = "Visibility"
+            text = "Visibility",
+            modifier = Modifier
+                .alpha(
+                    alpha = if (isIncreased) 100f else 0f
+                )
         )
     }
 }
@@ -134,8 +165,10 @@ fun AnimateContainer(
     Box(
         modifier = modifier
             .clip(RoundedCornerShape(8.dp))
-            .background(Color.Blue)
-            .size(200.dp),
+            .size(200.dp)
+            .background(
+                color = Color.Blue
+            ),
         contentAlignment = Alignment.Center
     ) {
         Text(
@@ -144,3 +177,9 @@ fun AnimateContainer(
         )
     }
 }
+
+
+
+
+
+
